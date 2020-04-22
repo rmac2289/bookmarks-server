@@ -1,18 +1,49 @@
 function makeBookmarksArray() {
     return [
-        { title: 'Book one', url: 'bookone.com', description: 'a book', rating: '8' },
-        { title:'Book two', url:'booktwo.com', description:'a good book', rating:'7'},
-        { title:'Book three', url:'book3.com', description:'ok book', rating:'4'},
-        { title:'Book four', url:'book4.com', description:'bad book', rating:'1'},
-        { title:'Book five', url:'book5.com', description:'book', rating:'5'},
-        { title:'Book six', url:'book6.com', description:'this is a good book', rating:'8'},
-        { title:'Book seven', url:'book7.com', description:'its ok', rating:'9'},
-        { title:'Book eight', url:'book8.com', description:'too long', rating:'3'},
-        { title:'Book nine', url:'book9.com', description:'too short', rating:'4'},
-        { title:'Book ten', url:'book10.com', description:'a good book', rating:'9'}
+      {
+        id: 1,
+        title: 'Thinkful',
+        url: 'https://www.thinkful.com',
+        description: 'Think outside the classroom',
+        rating: 5,
+      },
+      {
+        id: 2,
+        title: 'Google',
+        url: 'https://www.google.com',
+        description: 'Where we find everything else',
+        rating: 4,
+      },
+      {
+        id: 3,
+        title: 'MDN',
+        url: 'https://developer.mozilla.org',
+        description: 'The only place to find web documentation',
+        rating: 5,
+      },
     ]
-}
-
-    module.exports = {
-        makeBookmarksArray,
+  }
+  
+  function makeMaliciousBookmark() {
+    const maliciousBookmark = {
+      id: 911,
+      title: 'Naughty naughty very naughty <script>alert("xss");</script>',
+      url: 'https://www.hackers.com',
+      description: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
+      rating: 1,
     }
+    const expectedBookmark = {
+      ...maliciousBookmark,
+      title: 'Naughty naughty very naughty &lt;script&gt;alert(\"xss\");&lt;/script&gt;',
+      description: `Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.`
+    }
+    return {
+      maliciousBookmark,
+      expectedBookmark,
+    }
+  }
+  
+  module.exports = {
+    makeBookmarksArray,
+    makeMaliciousBookmark,
+  }
